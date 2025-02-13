@@ -1,0 +1,94 @@
+/* Basic resets */
+body, html, .landing-page {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  /* All sections take full viewport height */
+  .section {
+    height: 100vh;
+    position: relative;
+    width: 100vw;
+    
+  }
+  .background-video {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+  /* Section 1: transparent background */
+  .section-1 {
+    
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Sections 2 and 3: prepare for parallax background and curved borders */
+  .section-2 {
+    overflow: hidden;
+    background-color: #00bef3;
+    clip-path: polygon(0 16%, 100% 4%, 100% 100%, 0 100%);
+  }
+  
+  .section-3 {
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  /* Parallax container styling */
+  .parallax {
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  /* Curved border for Section 2 (curve at top) */
+  .parallax-top {
+    clip-path: ellipse(150% 100% at 50% 0%);
+  }
+  
+  /* Curved border for Section 3 (curve at bottom) */
+  .parallax-bottom {
+    clip-path: ellipse(150% 100% at 50% 100%);
+  }
+  
+  /* Content overlay styling */
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+  }
+  
+  .title {
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
+  }
+  
+  /* Header styling */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #333;
+    color: #fff;
+    padding: 20px 40px;
+    clip-path: polygon(0 0, 100% 0, 100% 96%, 0 94%);
+  }
