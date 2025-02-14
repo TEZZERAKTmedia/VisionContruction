@@ -1,32 +1,12 @@
-const path = require('path');
-require('dotenv').config({
-  path:
-    process.env.NODE_ENV === 'production'
-      ? path.resolve(__dirname, '../../../.env')  // Higher-level `.env` for production
-      : path.resolve(__dirname, '../../.env'),    // Lower-level `.env` for development
-});
-
+require('dotenv').config();
 const crypto = require('crypto');
-require('dotenv').config({
-  path: process.env.NODE_ENV === 'production'
-    ? path.resolve(__dirname, '../../../.env')  // Correct path for production
-    : path.resolve(__dirname, '../../../.env')  // Also use the same path for development for now
-});
 
-// Ensure ENCRYPTION_KEY is loaded
-if (!process.env.ENCRYPTION_KEY) {
-  console.error("❌ ERROR: ENCRYPTION_KEY is missing!");
-  process.exit(1);
-}
-
-// Set encryption key
+// Set the encryption key as a 32-byte buffer from the hex string
 const encryptionKey = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
 
 if (encryptionKey.length !== 32) {
-  console.error("❌ ERROR: ENCRYPTION_KEY must be exactly 32 bytes for AES-256 encryption.");
-  process.exit(1);
+  throw new Error("ENCRYPTION_KEY must be exactly 32 bytes for AES-256 encryption.");
 }
-
 const ivLength = 16; // AES block size
 
 // Encrypt function
@@ -45,10 +25,12 @@ function encrypt(text) {
 
 // Decrypt function
 function decrypt(encryptedText) {
+  // Check if input is valid
   if (!encryptedText || typeof encryptedText !== 'string') {
     throw new Error('Input to decrypt must be a non-empty string.');
   }
 
+  // Split the encrypted text into IV and encrypted content
   const parts = encryptedText.split(':');
   if (parts.length !== 2) {
     throw new Error('Invalid encrypted value format. Expected "iv:encryptedText".');
@@ -65,6 +47,7 @@ function decrypt(encryptedText) {
     throw new Error('Failed to convert IV or encrypted text to buffer: ' + err.message);
   }
 
+  // Perform decryption
   try {
     const decipher = crypto.createDecipheriv('aes-256-cbc', encryptionKey, iv);
     let decrypted = decipher.update(encryptedTextBuffer, 'hex', 'utf8');

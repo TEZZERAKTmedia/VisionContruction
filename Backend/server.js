@@ -255,7 +255,7 @@ sequelize.authenticate()
     checkShippedOrdersUsps();
 
     // ✅ Start the Express server
-    const PORT = process.env.PORT || 3450;
+    const PORT = process.env.PORT || 3451;
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
