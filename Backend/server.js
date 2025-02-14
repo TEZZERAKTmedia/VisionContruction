@@ -1,12 +1,13 @@
 const path = require('path');
 
 // Load dotenv with environment-specific configuration
-require('dotenv').config({
-  path: process.env.NODE_ENV === 'production'
-    ? path.resolve(__dirname, '../../../.env')  // Correct path for production
-    : path.resolve(__dirname, '../../../.env')  // Also use the same path for development for now
-});
-
+if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+  console.log('Running in Production Mode');
+} else {
+  require('dotenv').config(); // Defaults to .env in the same directory
+  console.log('Running in Development Mode');
+}
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');

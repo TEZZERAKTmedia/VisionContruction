@@ -7,6 +7,11 @@ require('dotenv').config({
 });
 
 const crypto = require('crypto');
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'production'
+    ? path.resolve(__dirname, '../../../.env')  // Correct path for production
+    : path.resolve(__dirname, '../../../.env')  // Also use the same path for development for now
+});
 
 // Ensure ENCRYPTION_KEY is loaded
 if (!process.env.ENCRYPTION_KEY) {
