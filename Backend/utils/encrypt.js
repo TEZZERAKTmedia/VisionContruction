@@ -2,8 +2,8 @@ const path = require('path');
 require('dotenv').config({
   path:
     process.env.NODE_ENV === 'production'
-      ? path.resolve(__dirname, '../../.env')  // Higher-level `.env` for production
-      : path.resolve(__dirname, '../.env'),    // Lower-level `.env` for development
+      ? path.resolve(__dirname, '../../../.env')  // Higher-level `.env` for production
+      : path.resolve(__dirname, '../../.env'),    // Lower-level `.env` for development
 });
 
 const crypto = require('crypto');
