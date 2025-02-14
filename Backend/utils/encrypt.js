@@ -1,4 +1,3 @@
-require('dotenv').config();
 const crypto = require('crypto');
 
 // Set the encryption key as a 32-byte buffer from the hex string
