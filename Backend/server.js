@@ -1,13 +1,11 @@
 const path = require('path');
 
 // Load dotenv with environment-specific configuration
-if (process.env.NODE_ENV === 'production') {
-  require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
-  console.log('Running in Production Mode');
-} else {
-  require('dotenv').config(); // Defaults to .env in the same directory
-  console.log('Running in Development Mode');
-}
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'production'
+    ? path.resolve(__dirname, '../../../.env')  // Make sure this path is correct
+    : path.resolve(__dirname, './.env'),
+});
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -103,7 +101,7 @@ app.use(
             : "http://localhost:5010", // ✅ Explicitly allow local dev frontend
           process.env.NODE_ENV === "production"
             ? "https://api.bakersburns.com"
-            : "http://localhost:3450", // ✅ Local backend access for development
+            : "http://localhost:3451", // ✅ Local backend access for development
         ].filter(Boolean), // ✅ Removes undefined values if a variable is missing
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"], // ✅ Adjust for necessary script security
         styleSrc: ["'self'", "'unsafe-inline'"], // ✅ Allow inline styles
@@ -130,15 +128,17 @@ app.use(session({
   cookie: { secure: process.env.NODE_ENV === 'production' } // Secure only in production
 }));
 
-// Middleware to force HTTPS in production
+// Remove forced HTTPS redirect (Handled by Nginx)
 if (process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(`https://${req.headers.host}${req.url}`);
+      console.log('Skipping HTTPS redirect because Nginx is handling it.');
+      return next(); // ✅ Allow request to continue instead of redirecting
     }
     next();
   });
 }
+
 
 
 
