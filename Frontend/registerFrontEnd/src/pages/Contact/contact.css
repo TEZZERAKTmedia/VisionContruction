@@ -1,0 +1,21 @@
+.about-section, .services-section, .contact-section {
+    padding: 50px;
+    text-align: center;
+  }
+  
+
+  
+  .contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  .contact-form button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  

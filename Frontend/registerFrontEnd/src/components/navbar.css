@@ -1,0 +1,27 @@
+/* Header styling */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
+    background-color: #333333a8;
+    color: #fff;
+    padding: 20px 40px;
+    clip-path: polygon(0 20%, 100% 0%, 100% 100%, 0 100%);
+    margin-right: 10%;
+  }
+  
+  /* Nav bar links */
+  .nav-bar a {
+    color: #fff;
+    text-decoration: none;
+    
+    margin-right: 7%;
+    font-size: clamp(.7rem, 1.2vw, 1.5rem);
+  }
+  
+  .nav-bar a:hover {
+    text-decoration: none;
+  }
+  
