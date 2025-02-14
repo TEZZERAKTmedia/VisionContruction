@@ -74,7 +74,7 @@ jobs:
             cd /home/trentynnicholas-api-vision/htdocs/api.vision.trentynnicholas.com/backend
             npm install --production
             echo "Restarting backend service..."
-            pm2 restart bakersburns
+            pm2 restart Vision
 
       - name: Restart Backend Service
         uses: appleboy/ssh-action@master
