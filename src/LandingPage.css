@@ -3,6 +3,7 @@ body, html, .landing-page {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    
   }
   
   /* All sections take full viewport height */
@@ -11,30 +12,51 @@ body, html, .landing-page {
     position: relative;
     width: 100vw;
     
+    
   }
-  .background-video {
-    position: absolute;
-    top: 20%;
-    left: 0;
-    width: 100vw;
-    height: auto;
-    object-fit: cover;
-    z-index: -1;
-  }
+
   
   /* Section 1: transparent background */
   .section-1 {
-    
-    background: transparent;
+    position: relative;
+    overflow: visible;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 50%;
   }
+  .btn {
+    background-color: #00f32d72;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .parallax-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .parallax-layer img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: #fff;
+  }
+  
+
   
   /* Sections 2 and 3: prepare for parallax background and curved borders */
   .section-2 {
     overflow: hidden;
-    background-color: #00bef3;
+    background-color: #00f32d72;
     clip-path: polygon(0 16%, 100% 4%, 100% 100%, 0 100%);
   }
   
