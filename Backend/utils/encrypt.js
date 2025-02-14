@@ -1,11 +1,27 @@
+const path = require('path');
+require('dotenv').config({
+  path:
+    process.env.NODE_ENV === 'production'
+      ? path.resolve(__dirname, '../../.env')  // Higher-level `.env` for production
+      : path.resolve(__dirname, '../.env'),    // Lower-level `.env` for development
+});
+
 const crypto = require('crypto');
 
-// Set the encryption key as a 32-byte buffer from the hex string
+// Ensure ENCRYPTION_KEY is loaded
+if (!process.env.ENCRYPTION_KEY) {
+  console.error("❌ ERROR: ENCRYPTION_KEY is missing!");
+  process.exit(1);
+}
+
+// Set encryption key
 const encryptionKey = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
 
 if (encryptionKey.length !== 32) {
-  throw new Error("ENCRYPTION_KEY must be exactly 32 bytes for AES-256 encryption.");
+  console.error("❌ ERROR: ENCRYPTION_KEY must be exactly 32 bytes for AES-256 encryption.");
+  process.exit(1);
 }
+
 const ivLength = 16; // AES block size
 
 // Encrypt function
@@ -24,12 +40,10 @@ function encrypt(text) {
 
 // Decrypt function
 function decrypt(encryptedText) {
-  // Check if input is valid
   if (!encryptedText || typeof encryptedText !== 'string') {
     throw new Error('Input to decrypt must be a non-empty string.');
   }
 
-  // Split the encrypted text into IV and encrypted content
   const parts = encryptedText.split(':');
   if (parts.length !== 2) {
     throw new Error('Invalid encrypted value format. Expected "iv:encryptedText".');
@@ -46,7 +60,6 @@ function decrypt(encryptedText) {
     throw new Error('Failed to convert IV or encrypted text to buffer: ' + err.message);
   }
 
-  // Perform decryption
   try {
     const decipher = crypto.createDecipheriv('aes-256-cbc', encryptionKey, iv);
     let decrypted = decipher.update(encryptedTextBuffer, 'hex', 'utf8');
