@@ -1,6 +1,7 @@
 // controllers/contactController.js
 require('dotenv').config();
-const { sendEmailNotification } = require('../../utils/email');
+const { sendEmailNotification } = require('../../utils/email');console.log("Admin email from env:", process.env.ADMIN_EMAIL);
+console.log("Admin email from env:", process.env.ADMIN_EMAIL);
 
 const handleContactForm = async (req, res) => {
   const { name, email, constructionType, message } = req.body;
