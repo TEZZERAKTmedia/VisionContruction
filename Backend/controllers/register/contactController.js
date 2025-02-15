@@ -1,4 +1,5 @@
 // controllers/contactController.js
+require('dotenv').config();
 const { sendEmailNotification } = require('../../utils/email');
 
 const handleContactForm = async (req, res) => {
