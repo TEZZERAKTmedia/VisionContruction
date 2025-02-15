@@ -3,7 +3,7 @@ const path = require('path');
 // Load dotenv with environment-specific configuration
 require('dotenv').config({
   path: process.env.NODE_ENV === 'production'
-    ? path.resolve(__dirname, '../../../.env')  // Make sure this path is correct
+    ? path.resolve(__dirname, '../../.env')  // Make sure this path is correct
     : path.resolve(__dirname, './.env'),
 });
 const express = require('express');
